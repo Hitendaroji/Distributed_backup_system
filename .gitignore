@@ -1,0 +1,8 @@
+__pycache__/
+*.py[cod]
+/failover_fresh.bin
+/failure_test.bin
+/large_sample.bin
+/sample.txt
+/server/received_files/
+/server/storage/
