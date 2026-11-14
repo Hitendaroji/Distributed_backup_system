@@ -168,7 +168,7 @@ sudo mn --custom topology/backup_topology.py --topo backup --controller=remote,i
 Inside the Mininet CLI, run:
 
 ```bash
-h2 sh -c 'cd ~/distributed-backup-system && python3 server/tcp_server.py 5000 backup_mininet' &
+h2 sh -c 'cd /home/hiten/distributed-backup-system && python3 server/tcp_server.py 5000 backup_mininet' &
 ```
 
 
@@ -185,7 +185,7 @@ cd ~/distributed-backup-systempython3 -c "open('mininet_sample.bin','wb').write(
 Inside the Mininet CLI:
 
 ```bash
-h1 sh -c 'cd ~/distributed-backup-system && PYTHONPATH=. python3 client/mininet_client.py'
+h1 sh -c 'cd /home/hiten/distributed-backup-system && PYTHONPATH=. python3 client/mininet_client.py'
 ```
 
 Replace the project path with your actual project directory.
