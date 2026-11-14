@@ -1,0 +1,3 @@
+# Application code uses Python standard library modules only.
+# Ryu is installed separately inside the Docker container.
+# Mininet and Open vSwitch are installed through Ubuntu packages.

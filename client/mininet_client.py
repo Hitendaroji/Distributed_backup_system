@@ -8,7 +8,7 @@ from common.checksum import calculate_checksum
 
 HOST = "10.0.0.2"
 PORTS = [5000]
-FILENAME = "failure_test.bin"
+FILENAME = "mininet_sample.bin"
 
 def receive_exact(connection, size):
     data = b""
