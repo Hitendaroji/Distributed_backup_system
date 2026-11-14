@@ -1,26 +1,26 @@
 # Distributed Backup System with SDN-Based Failover
 
-## Project Overview
+## 1. Project Overview
 
-The Distributed Backup System is a file backup application that uses TCP socket programming to transfer files from clients to backup servers.
+The Distributed Backup System is a file backup application that transfers files from a client to backup servers using TCP.
 
-The system divides files into smaller chunks, verifies data integrity using SHA-256 checksums, and supports resuming interrupted transfers.
+The system divides files into smaller chunks, calculates SHA-256 checksums to verify data integrity, and supports resuming interrupted transfers.
 
-Software Defined Networking (SDN) is integrated using the Ryu controller and Mininet to provide network path selection and automatic failover when a network link fails.
+Software Defined Networking (SDN) is integrated using Ryu and Mininet to dynamically switch between primary and backup network paths when a link failure occurs.
 
-## Key Features
+## 2. Features
 
-- TCP-based file transfer
-- File chunking for efficient data transmission
-- SHA-256 checksum verification
-- File replication across multiple backup servers
-- Resume support for interrupted transfers
-- Handling of unavailable backup servers
-- SDN-based primary and backup path selection
-- Automatic network failover and path restoration
-- Transfer time and throughput measurement
+- TCP-based file transfer.
+- File chunking for efficient transfer.
+- SHA-256 checksum verification.
+- Multiple backup server replication.
+- Resume interrupted file transfers.
+- Backup server failure handling.
+- SDN-based primary and backup path selection.
+- Automatic network failover and path restoration.
+- Transfer time and throughput measurement.
 
-## Technologies Used
+## 3. Technologies Used
 
 - Python
 - TCP Socket Programming
@@ -32,45 +32,46 @@ Software Defined Networking (SDN) is integrated using the Ryu controller and Min
 - Docker
 - Ubuntu Linux
 
-## System Architecture
+## 4. Project Architecture
 
-### 1. Application Layer
+### Application Layer
 
-The client divides the original file into smaller chunks and transfers them to backup servers using TCP.
+The client divides files into chunks and sends them to backup servers using TCP.
 
 Each chunk contains:
 - Chunk ID
 - Chunk size
 - SHA-256 checksum
-- Actual file data
+- File data
 
-The server verifies each chunk using its checksum and stores the received data. Once all chunks are available, the original file is reconstructed.
+The server verifies the checksum and stores the received chunks. Once all chunks are available, the original file is reconstructed.
 
-### 2. Distributed Backup
+### Distributed Backup
 
 The application supports replication across three backup server instances.
 
-If one backup server becomes unavailable, the client continues attempting transfers to the remaining servers.
+If one backup server is unavailable, the client continues attempting transfers to the remaining servers.
 
-### 3. SDN Network Layer
+### SDN Network Layer
 
-The Mininet topology consists of:
+The Mininet topology contains:
 - One client host (h1)
 - One destination server host (h2)
 - Four Open vSwitch switches (s1, s2, s3, s4)
-- One Ryu SDN controller
 
-**Primary Path:**
+Two network paths are available:
 
-h1 → s1 → s2 → s4 → h2
+Primary:
+h1 -> s1 -> s2 -> s4 -> h2
 
-**Backup Path:**
+Backup:
+h1 -> s1 -> s3 -> s4 -> h2
 
-h1 → s1 → s3 → s4 → h2
+The Ryu controller monitors link status and changes the forwarding rules when the primary path fails.
 
-The Ryu controller monitors link status and updates forwarding rules when the primary path fails. When the primary link is restored, the controller switches traffic back to the primary path.
+When the primary link is restored, the controller switches back to the primary path.
 
-## Project Structure
+## 5. Project Structure
 
 ```text
 distributed-backup-system/
@@ -94,27 +95,4 @@ distributed-backup-system/
 │
 ├── controller.py
 ├── controller_basic.py
-├── .gitignore
 └── README.md
-```
-
-## Running the Project
-
-### Prerequisites
-
-- Ubuntu Linux or Ubuntu through WSL2
-- Python 3
-- Docker
-- Mininet
-- Open vSwitch
-- Ryu SDN Controller
-
-### Step 1: Start the Ryu Controller
-
-Start the existing Docker container:
-
-```bash
-sudo docker start -ai ryu-controller
-```
-
-Inside the container
